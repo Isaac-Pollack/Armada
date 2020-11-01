@@ -1,5 +1,5 @@
 let customFont, introSong, playBkg, uiPanel, shootingVideo, movementVideo;
-let playButton, settingsButton, highscoreButton, buttonR, buttonG, buttonB, buttonY, percent = 0, defaultAnim;
+let playButton, settingsButton, highscoreButton, buttonR, buttonG, buttonB, buttonY, percent = 0, defaultAnim, explosionAnimation;
 let scrollY = 0, uisizeX, uisizeY, shipsizeX, shipsizeY, xConstrain, yConstrain, minutes, seconds, milliseconds, hsData, settingsData;
 let ship, shipBlue, shipRed, shipGreen, enemyRed, enemyGreen, bullet, bulletIMG, maxRedEnemies = 8, maxGreenEnemies = 2, maxBullets = 20;
 
@@ -124,6 +124,7 @@ function drawPlayScreen() { //PLAY - 2
     }
     if(enemyGreen.overlap(friendlyProjectiles)) {
       enemyGreen.remove();
+      //animation(explosionAnimation, enemyGreen.position.x, enemyGreen.position.y);
     }
     if(enemyGreen.overlap(ship)) {
       currentScreen = GAME_OVER;
@@ -142,6 +143,7 @@ function drawPlayScreen() { //PLAY - 2
     }
     if(enemyRed.overlap(friendlyProjectiles)) {
       enemyRed.remove();
+      //animation(explosionAnimation, enemyGreen.position.x, enemyGreen.position.y);
     }
     if(enemyRed.overlap(ship)) {
       currentScreen = GAME_OVER;
@@ -348,13 +350,16 @@ function preload() {
   //  Misc
   playBkg = loadImage('assets/backgrounds/SpaceBackground.png')
   customFont = loadFont('assets/Silver.ttf');
-  introSong = loadSound('assets/sounds/IntroSong.mp3');
   hsData = loadJSON('assets/highscores.json');
 
   //  Player/Enemies
   shipBlue = loadImage('assets/ships/PlayerShip.png');
   shipRed = loadImage('assets/ships/EnemyRed.png');
   shipGreen = loadImage('assets/ships/EnemyGreen.png');
+
+  //  SOUNDS
+  introSong = loadSound('assets/sounds/IntroSong.mp3');
+  explosionSound = loadSound('assets/sounds/explosionsound.mp3'); //https://opengameart.org/content/big-explosion
 
   //  Animations
   flame1 = loadImage('assets/flame/1.png');
@@ -363,6 +368,13 @@ function preload() {
   flame4 = loadImage('assets/flame/4.png');
   flame5 = loadImage('assets/flame/5.png');
   defaultAnim = loadAnimation(flame1, flame2, flame3, flame4, flame5);
+
+  //  Explosion Credit - https://opengameart.org/content/explosion-3
+  explosion1 = loadImage('assets/flame/explosion1.png');
+  explosion2 = loadImage('assets/flame/explosion2.png');
+  explosion3 = loadImage('assets/flame/explosion3.png');
+  explosion4 = loadImage('assets/flame/explosion4.png');
+  explosionAnimation = loadAnimation(explosion1, explosion2, explosion3, explosion4);
 
   //Controls - https://gerald-burke.itch.io/geralds-keys
   Wkey = loadImage('assets/controls/W-key.png');
